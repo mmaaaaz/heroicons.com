@@ -30,20 +30,28 @@ function importIcons(r, type, attrs) {
   })
 }
 
-const iconsMedium = importIcons(require.context(`heroicons/outline/`, false, /\.svg$/), 'md', {
-  width: 24,
-  height: 24,
-  fill: 'none',
-  viewBox: '0 0 24 24',
-  stroke: 'currentColor',
-  strokeWidth: 2,
-})
-const iconsSmall = importIcons(require.context(`heroicons/solid/`, false, /\.svg$/), 'sm', {
-  width: 20,
-  height: 20,
-  viewBox: '0 0 20 20',
-  fill: 'currentColor',
-})
+const iconsMedium = importIcons(
+  require.context(`heroicons/outline/`, false, /\.svg$/),
+  'md',
+  {
+    width: 24,
+    height: 24,
+    fill: 'none',
+    viewBox: '0 0 24 24',
+    stroke: 'currentColor',
+    strokeWidth: 2,
+  }
+)
+const iconsSmall = importIcons(
+  require.context(`heroicons/solid/`, false, /\.svg$/),
+  'sm',
+  {
+    width: 20,
+    height: 20,
+    viewBox: '0 0 20 20',
+    fill: 'currentColor',
+  }
+)
 const iconCount = iconsMedium.length
 
 const useStore = createStore((set) => ({
@@ -53,7 +61,9 @@ const useStore = createStore((set) => ({
     set({
       query,
       filter: query
-        ? matchSorter(iconsMedium, query, { keys: ['name', 'tags'] }).map((x) => x.name)
+        ? matchSorter(iconsMedium, query, { keys: ['name', 'tags'] }).map(
+            (x) => x.name
+          )
         : undefined,
     })
   },
@@ -63,7 +73,9 @@ function stringifyAttrs(attrs, filter = () => true) {
   let str = Object.keys(attrs)
     .filter(filter)
     .map((attr) =>
-      /^[0-9.]+$/.test(attrs[attr]) ? `${attr}={${attrs[attr]}}` : `${attr}="${attrs[attr]}"`
+      /^[0-9.]+$/.test(attrs[attr])
+        ? `${attr}={${attrs[attr]}}`
+        : `${attr}="${attrs[attr]}"`
     )
     .join(' ')
   if (str) return ` ${str}`
@@ -97,7 +109,9 @@ function copyIcon(icon, as) {
     stringifyAttrs(
       {
         xmlns: 'http://www.w3.org/2000/svg',
-        ...(icon.type === 'sm' ? { className: 'h-5 w-5' } : { className: 'h-6 w-6' }),
+        ...(icon.type === 'sm'
+          ? { className: 'h-5 w-5' }
+          : { className: 'h-6 w-6' }),
         ...icon.attrs,
       },
       (a) => !['width', 'height'].includes(a)
@@ -135,7 +149,12 @@ function copyIcon(icon, as) {
     .replace(
       /(\s)([a-z]+)="/gi,
       (_, ws, attr) =>
-        ws + attr.replace(/([a-z])([A-Z])/g, (_, p1, p2) => `${p1}-${p2.toLowerCase()}`) + '="'
+        ws +
+        attr.replace(
+          /([a-z])([A-Z])/g,
+          (_, p1, p2) => `${p1}-${p2.toLowerCase()}`
+        ) +
+        '="'
     )
     .replace('view-box=', 'viewBox=')
 
@@ -180,7 +199,11 @@ const Icon = memo(({ icon }) => {
       setActiveType('jsx')
     } else if (activeType === 'jsx' && e.which === UP) {
       setActiveType('svg')
-    } else if (state === 'active' && activeType && [ENTER, SPACE].includes(e.which)) {
+    } else if (
+      state === 'active' &&
+      activeType &&
+      [ENTER, SPACE].includes(e.which)
+    ) {
       copy(activeType)
     }
   }
@@ -370,7 +393,12 @@ function Header({ version }) {
               href={SHARE_LINK}
               className="flex items-center space-x-2 text-white hover:text-purple-200 transition-colors duration-150 font-semibold"
             >
-              <svg width="20" height="20" fill="currentColor" className="text-white opacity-40">
+              <svg
+                width="20"
+                height="20"
+                fill="currentColor"
+                className="text-white opacity-40"
+              >
                 <path d="M6.29 18.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0020 3.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.073 4.073 0 01.8 7.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 010 16.407a11.616 11.616 0 006.29 1.84" />
               </svg>
               <p>
@@ -393,7 +421,8 @@ function Header({ version }) {
             <h1 className="font-display text-white text-3xl leading-9 font-semibold sm:text-4xl sm:leading-10">
               Beautiful hand-crafted SVG icons,{' '}
               <span className="sm:block text-purple-300">
-                by the makers of <a href="https://tailwindcss.com">Tailwind CSS</a>.
+                by the makers of{' '}
+                <a href="https://tailwindcss.com">Tailwind CSS</a>.
               </span>
             </h1>
             <div className="flex flex-wrap justify-center xl:justify-start whitespace-no-wrap text-purple-100 font-medium mt-3 leading-5">
@@ -433,7 +462,10 @@ function Header({ version }) {
                 </div>
                 <div>MIT Licensed</div>
               </div>
-              <a className="flex items-center mx-3 sm:mx-4 xl:mx-0 mt-3" href="https://github.com/tailwindlabs/heroicons#react">
+              <a
+                className="flex items-center mx-3 sm:mx-4 xl:mx-0 mt-3"
+                href="https://github.com/tailwindlabs/heroicons#react"
+              >
                 <div className="mr-2">
                   <svg
                     width="20"
@@ -455,7 +487,10 @@ function Header({ version }) {
           </div>
           <div className="w-full sm:w-auto flex-none flex flex-col-reverse sm:flex-row sm:items-start space-y-3 space-y-reverse sm:space-y-0 sm:space-x-4 mt-10 mx-auto xl:mx-0">
             <div>
-              <a href={`https://github.com/tailwindlabs/heroicons`} className="group flex">
+              <a
+                href={`https://github.com/tailwindlabs/heroicons`}
+                className="group flex"
+              >
                 <div className="w-full sm:w-auto inline-flex items-center justify-center text-purple-900 group-hover:text-purple-500 font-medium leading-none bg-white rounded-lg shadow-sm group-hover:shadow-lg py-3 px-5 border border-transparent transform-gpu group-hover:-translate-y-0.5 transition-all duration-150">
                   <svg
                     width="24"
@@ -600,7 +635,10 @@ function Search() {
       onSubmit={(e) => e.preventDefault()}
     >
       <div className="max-w-10xl mx-auto flex">
-        <label htmlFor="search-input" className="flex-none pr-3 flex items-center">
+        <label
+          htmlFor="search-input"
+          className="flex-none pr-3 flex items-center"
+        >
           <span className="sr-only">Search all {iconsMedium.length} icons</span>
           <svg
             width="24"
@@ -639,7 +677,12 @@ function IconsContainer() {
   if (filter && filter.length === 0) {
     return (
       <div className="pt-10 pb-16 sm:pt-24 sm:pb-36 lg:pt-40 lg:pb-56 text-center">
-        <svg width="96" height="96" fill="none" className="mx-auto mb-6 text-gray-900">
+        <svg
+          width="96"
+          height="96"
+          fill="none"
+          className="mx-auto mb-6 text-gray-900"
+        >
           <path
             d="M36 28.024A18.05 18.05 0 0025.022 39M59.999 28.024A18.05 18.05 0 0170.975 39"
             stroke="currentColor"
@@ -685,27 +728,41 @@ function IconsContainer() {
     >
       <section className="contents">
         <header className="col-start-1 row-start-1 flex flex-wrap items-baseline">
-          <h2 className="flex-none text-lg leading-6 font-medium text-gray-900 mr-3">Outline</h2>
+          <h2 className="flex-none text-lg leading-6 font-medium text-gray-900 mr-3">
+            Outline
+          </h2>
           <p className="hidden sm:block flex-auto text-gray-400 text-sm leading-5 font-medium">
             2px stroke weight, 24x24 bounding box
           </p>
           <p className="hidden sm:block flex-none w-full text-sm leading-5 mt-3">
-            For primary navigation and marketing sections, designed to be rendered at 24x24.
+            For primary navigation and marketing sections, designed to be
+            rendered at 24x24.
           </p>
         </header>
-        <Icons icons={iconsMedium} filter={filter} className="col-start-1 row-start-2" />
+        <Icons
+          icons={iconsMedium}
+          filter={filter}
+          className="col-start-1 row-start-2"
+        />
       </section>
       <section className="contents">
         <header className="col-start-2 row-start-1 flex flex-wrap items-baseline">
-          <h2 className="flex-none text-lg leading-6 font-medium text-gray-900 mr-3">Solid</h2>
+          <h2 className="flex-none text-lg leading-6 font-medium text-gray-900 mr-3">
+            Solid
+          </h2>
           <p className="hidden sm:block flex-auto text-gray-400 text-sm leading-5 font-medium">
             Solid fill, 20x20 bounding box
           </p>
           <p className="hidden sm:block flex-none w-full text-sm leading-5 mt-3">
-            For buttons, form elements, and to support text, designed to be rendered at 20x20.
+            For buttons, form elements, and to support text, designed to be
+            rendered at 20x20.
           </p>
         </header>
-        <Icons icons={iconsSmall} filter={filter} className="col-start-2 row-start-2" />
+        <Icons
+          icons={iconsSmall}
+          filter={filter}
+          className="col-start-2 row-start-2"
+        />
       </section>
       <div className="absolute left-1/2 top-0 bottom-0 w-px bg-gray-200" />
     </div>
@@ -748,7 +805,9 @@ export default function Home({ version }) {
         <meta property="og:title" content="Heroicons" />
         <meta
           property="og:image"
-          content={`https://heroicons.com${require('../img/social-card.jpg').default}`}
+          content={`https://heroicons.com${
+            require('../img/social-card.jpg').default
+          }`}
         />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@tailwindlabs" />
@@ -759,7 +818,9 @@ export default function Home({ version }) {
         />
         <meta
           name="twitter:image"
-          content={`https://heroicons.com${require('../img/social-card.jpg').default}`}
+          content={`https://heroicons.com${
+            require('../img/social-card.jpg').default
+          }`}
         />
       </Head>
       <Header version={version} />

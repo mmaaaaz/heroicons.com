@@ -1,18 +1,25 @@
-/** @type {import('next').NextConfig} */
+/**
+ * @type {import('next').NextConfig}
+ */
 const nextConfig = {
-  reactStrictMode: true,
   swcMinify: true,
+  reactStrictMode: true,
   experimental: {
     newNextLinkBehavior: true,
     scrollRestoration: true,
-    images: {
-      allowFutureImage: true,
-    },
+    legacyBrowsers: false,
+    browsersListForSwc: true,
+    images: { allowFutureImage: true },
   },
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
+  poweredByHeader: false,
+
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/i,
-      use: ['raw-loader'],
+      type: 'asset/source',
     })
 
     return config

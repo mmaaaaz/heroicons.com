@@ -1,12 +1,12 @@
 version: 2
 updates:
-  - package-ecosystem: "npm"
-    directory: "/"
+  - package-ecosystem: 'npm'
+    directory: '/'
     schedule:
-      interval: "daily"
+      interval: 'daily'
     allow:
-      - dependency-name: "heroicons"
-      - dependency-name: "tailwindcss"
-      - dependency-name: "@headlessui/*"
+      - dependency-name: 'heroicons'
+      - dependency-name: 'tailwindcss'
+      - dependency-name: '@headlessui/*'
     labels:
-      - "dependencies"
+      - 'dependencies'

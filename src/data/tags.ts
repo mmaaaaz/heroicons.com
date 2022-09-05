@@ -1,4 +1,8 @@
-export const tags = {
+interface Tags {
+  [index: string]: string[]
+}
+
+export const tags: Tags = {
   'academic-cap': [
     'degree',
     'diploma',
